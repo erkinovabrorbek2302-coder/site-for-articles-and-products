@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Mahsulotlar</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .mahsulot-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .mahsulot-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(108, 92, 231, 0.08);
+            border-color: rgba(108, 92, 231, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        .mahsulot-card .rasm {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            object-fit: cover;
+            background: #2a2a3e;
+            flex-shrink: 0;
+        }
+        .mahsulot-card .info {
+            flex: 1;
+        }
+        .mahsulot-card .info h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .mahsulot-card .info h2 a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .mahsulot-card .info h2 a:hover {
+            color: #a29bfe;
+        }
+        .mahsulot-card .info .narx {
+            color: #fdcb6e;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .mahsulot-card .info .holat {
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .mahsulot-card .info .tavsif {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 45px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .empty .icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Mahsulotlar</h1>
+            <nav>
+                <a href="{% url 'myapp:home' %}">🏠 Bosh sahifa</a>
+            </nav>
+        </header>
+
+        {% for mahsulot in mahsulotlar %}
+            <div class="mahsulot-card" onclick="window.location='{% url 'myapp:mahsulot_detail' mahsulot.slug %}'">
+                {% if mahsulot.surat %}
+                    <img src="{{ mahsulot.surat.url }}" alt="{{ mahsulot.nom }}" class="rasm">
+                {% else %}
+                    <div class="rasm" style="display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #555;">🖼️</div>
+                {% endif %}
+
+                <div class="info">
+                    <h2><a href="{% url 'myapp:mahsulot_detail' mahsulot.slug %}">{{ mahsulot.nom }}</a></h2>
+                    <p class="narx">💰 {{ mahsulot.narx }} so'm</p>
+                    <p class="holat">
+                        {% if mahsulot.holat == 'mavjud' %}✅ Mavjud
+                        {% elif mahsulot.holat == 'mavjud_emas' %}❌ Mavjud emas
+                        {% else %}⚠️ Tugab qolgan{% endif %}
+                    </p>
+                    <p class="tavsif">{{ mahsulot.tavsif|truncatewords:12 }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty">
+                <span class="icon">📭</span>
+                <p>Hozircha mahsulotlar mavjud emas.</p>
+            </div>
+        {% endfor %}
+
+        <footer>
+            <p>© 2026 Mening saytim</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

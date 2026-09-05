@@ -1,0 +1,154 @@
+<!--{% load static %}-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="uz">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Bosh sahifa</title>-->
+<!--    <link rel="stylesheet" href="{% static 'css/style.css' %}">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <header>-->
+<!--            <h1>📚 MySite</h1>-->
+<!--            <nav>-->
+<!--                <a href="{% url 'myapp:maqola_list' %}">Maqolalar</a>-->
+<!--                <a href="{% url 'myapp:mahsulot_list' %}">Mahsulotlar</a>-->
+<!--                <a href="{% url 'myapp:maqola_search' %}">Qidiruv</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+
+<!--        <div class="card">-->
+<!--            <h2>Xush kelibsiz!</h2>-->
+<!--            <p>Bu yerda siz maqolalar va mahsulotlarni ko'rishingiz mumkin.</p>-->
+<!--        </div>-->
+
+<!--        <footer>-->
+<!--            <p>© 2026 Mening saytim</p>-->
+<!--        </footer>-->
+<!--    </div>-->
+
+<!--    <script src="{% static 'js/script.js' %}"></script>-->
+<!--</body>-->
+<!--</html>-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosh sahifa</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* ===== HOME SAHIFA MAXSUS USLUBI ===== */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(145deg, rgba(108, 92, 231, 0.12), rgba(162, 155, 254, 0.05));
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: heroFade 1s ease;
+        }
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.2rem;
+            margin-top: 12px;
+        }
+        @keyframes heroFade {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== KATEGORIYALAR ===== */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .category-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: #e0e0e0;
+        }
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(108, 92, 231, 0.12);
+            border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 0 20px 50px rgba(108, 92, 231, 0.15);
+        }
+        .category-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .category-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .category-card p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 <span>My</span>Site</h1>
+            <nav>
+                <a href="{% url 'myapp:maqola_list' %}">📄 Maqolalar</a>
+                <a href="{% url 'myapp:mahsulot_list' %}">🛍️ Mahsulotlar</a>
+                <a href="{% url 'myapp:maqola_search' %}">🔍 Qidiruv</a>
+                <!-- ✅ CREATE LINGI YO'Q (faqat admin) -->
+            </nav>
+        </header>
+
+        <!-- ===== HERO ===== -->
+        <div class="hero">
+            <h2>📖 Xush kelibsiz!</h2>
+            <p>Bu yerda siz maqolalar va mahsulotlarni ko'rishingiz mumkin.</p>
+        </div>
+
+        <!-- ===== KATEGORIYALAR ===== -->
+        <div class="categories">
+            <a href="{% url 'myapp:maqola_list' %}" class="category-card">
+                <span class="icon">📄</span>
+                <h3>Maqolalar</h3>
+                <p>Barcha maqolalarni ko'rish</p>
+            </a>
+            <a href="{% url 'myapp:mahsulot_list' %}" class="category-card">
+                <span class="icon">🛍️</span>
+                <h3>Mahsulotlar</h3>
+                <p>Barcha mahsulotlarni ko'rish</p>
+            </a>
+            <a href="{% url 'myapp:maqola_search' %}" class="category-card">
+                <span class="icon">🔍</span>
+                <h3>Qidiruv</h3>
+                <p>Maqola va mahsulotlarni qidirish</p>
+            </a>
+        </div>
+
+        <footer>
+            <p>© 2026 Mening saytim</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

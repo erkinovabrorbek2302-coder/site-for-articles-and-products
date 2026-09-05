@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ maqola.nom }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .maqola-ramka {
+            background: #fefcf3;
+            border: 2px solid #8b6b4d;
+            border-radius: 16px;
+            padding: 40px 45px;
+            max-width: 850px;
+            margin: 30px auto;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #2c1e12;
+            line-height: 1.8;
+        }
+        .maqola-ramka .muallif {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5a3f2b;
+            border-bottom: 2px solid #dac09a;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+        .maqola-ramka .sarlavha {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3a2417;
+            margin-bottom: 18px;
+            font-style: italic;
+        }
+        .maqola-ramka .matn {
+            font-size: 1.1rem;
+            text-align: justify;
+            text-indent: 40px;
+            line-height: 1.9;
+            word-spacing: 1px;
+        }
+        .maqola-ramka .matn p {
+            margin-bottom: 14px;
+        }
+        .maqola-ramka .sana {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #8a7a6a;
+            text-align: right;
+            border-top: 1px dashed #dac09a;
+            padding-top: 14px;
+            font-style: italic;
+        }
+        .ortga {
+            display: inline-block;
+            margin-top: 20px;
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .ortga:hover {
+            color: #4a3a9e;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📖 {{ maqola.nom }}</h1>
+            <nav>
+                <a href="{% url 'myapp:home' %}">🏠 Bosh sahifa</a>
+                <a href="{% url 'myapp:maqola_list' %}">📄 Maqolalar</a>
+            </nav>
+        </header>
+
+        <!-- ===== CHIROYLI RAMKA ===== -->
+        <div class="maqola-ramka">
+            <div class="muallif">✍️ {{ maqola.muallifi }}</div>
+            <div class="sarlavha">📌 {{ maqola.sarlavha }}</div>
+            <div class="matn">
+                {{ maqola.tavsif|linebreaks }}
+            </div>
+            <div class="sana">📅 {{ maqola.yaratilgan|date:"d.m.Y H:i" }}</div>
+        </div>
+
+        <a href="{% url 'myapp:maqola_list' %}" class="ortga">⬅️ Ortga</a>
+
+        <footer>
+            <p>© 2026 Mening saytim</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

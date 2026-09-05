@@ -1,0 +1,349 @@
+/* ============================================================
+   UMUMIY SOZLAMALAR
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f0f1a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.08) 0%, transparent 50%),
+                      radial-gradient(circle at 90% 80%, rgba(253, 203, 110, 0.06) 0%, transparent 50%);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 25px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #5a4bd1, #8c7fe6);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+    background: linear-gradient(145deg, rgba(108, 92, 231, 0.15), rgba(162, 155, 254, 0.08));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 35px 30px;
+    border-radius: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: headerGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+    0% { box-shadow: 0 20px 60px rgba(108, 92, 231, 0.2); }
+    100% { box-shadow: 0 20px 80px rgba(108, 92, 231, 0.4); }
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff 0%, #a29bfe 50%, #fdcb6e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+}
+
+/* ============================================================
+   NAVIGATSIYA
+   ============================================================ */
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+nav a {
+    position: relative;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    z-index: 1;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 60px;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+nav a:hover {
+    color: #ffffff;
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 40px rgba(108, 92, 231, 0.35);
+    border-color: transparent;
+}
+
+nav a:hover::before {
+    opacity: 1;
+}
+
+/* ============================================================
+   KARTALAR
+   ============================================================ */
+.card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 28px 30px;
+    border-radius: 24px;
+    margin-bottom: 22px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-left: 4px solid #6c5ce7;
+    animation: cardFade 0.6s ease forwards;
+    opacity: 0;
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.12s; }
+.card:nth-child(3) { animation-delay: 0.19s; }
+.card:nth-child(4) { animation-delay: 0.26s; }
+.card:nth-child(5) { animation-delay: 0.33s; }
+
+@keyframes cardFade {
+    0% { opacity: 0; transform: translateY(40px) scale(0.97); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.01);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(108, 92, 231, 0.3);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.card h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.card h2 a {
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.card h2 a:hover {
+    color: #a29bfe;
+}
+
+.card .muallif {
+    color: #a29bfe;
+    font-weight: 600;
+}
+
+.card .meta {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+/* ============================================================
+   FORMALAR
+   ============================================================ */
+form {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px;
+    border-radius: 28px;
+    animation: cardFade 0.6s ease;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: #6c5ce7;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 6px rgba(108, 92, 231, 0.15);
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+form button {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 60px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.5px;
+}
+
+form button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 15px 45px rgba(108, 92, 231, 0.4);
+}
+
+/* ============================================================
+   QIDIRUV
+   ============================================================ */
+.search-box {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 60px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 6px rgba(108, 92, 231, 0.15);
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.search-box button {
+    padding: 16px 36px;
+    border-radius: 60px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    text-align: center;
+    padding: 35px 0 20px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #a29bfe;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #fdcb6e;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    nav a {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    .card {
+        padding: 20px;
+    }
+    form {
+        padding: 25px;
+    }
+    .search-box {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px 14px;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    nav a {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+    .card h2 {
+        font-size: 1.2rem;
+    }
+}

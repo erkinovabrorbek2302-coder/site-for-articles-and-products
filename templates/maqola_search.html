@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Qidiruv</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* ===== MAQOLA KARTALARI (MAQOLA_LIST DAGIDEK) ===== */
+        .maqola-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        .maqola-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(108, 92, 231, 0.08);
+            border-color: rgba(108, 92, 231, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        .maqola-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .maqola-card h2 a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .maqola-card h2 a:hover {
+            color: #a29bfe;
+        }
+        .maqola-card .muallif {
+            color: #a29bfe;
+            font-weight: 600;
+        }
+        .maqola-card .sana {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* ===== QO'SHIMCHA MA'LUMOT (HOVERDA) ===== */
+        .maqola-card .extra {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding-top: 0;
+        }
+        .maqola-card:hover .extra {
+            max-height: 180px;
+            opacity: 1;
+            padding-top: 16px;
+        }
+
+        .maqola-card .extra .tavsif {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 12px;
+            margin-top: 6px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 50px;
+        }
+
+        /* ===== QIDIRUV FORMASI ===== */
+        .search-wrapper {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 30px 32px;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+        .search-wrapper:hover {
+            background: rgba(108, 92, 231, 0.06);
+            border-color: rgba(108, 92, 231, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .search-wrapper form {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .search-wrapper input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 60px;
+            color: #fff;
+            font-size: 1rem;
+            transition: 0.3s;
+            min-width: 200px;
+        }
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 6px rgba(108, 92, 231, 0.15);
+        }
+        .search-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .search-wrapper button {
+            padding: 14px 36px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-wrapper button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        /* ===== NATIJA SONI ===== */
+        .natija-soni {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .natija-soni strong {
+            color: #a29bfe;
+        }
+
+        /* ===== BO'SH HOLAT ===== */
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .empty .icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Qidiruv</h1>
+            <nav>
+                <a href="{% url 'myapp:home' %}">🏠 Bosh sahifa</a>
+                <a href="{% url 'myapp:maqola_list' %}">📄 Maqolalar</a>
+            </nav>
+        </header>
+
+        <!-- ===== QIDIRUV FORMASI ===== -->
+        <div class="search-wrapper">
+            <form method="GET" action="{% url 'myapp:maqola_search' %}">
+                <input type="text" name="nom" placeholder="🔍 Maqola nomi bo'yicha qidirish..." value="{{ qidiruv }}">
+                <button type="submit">Qidirish</button>
+            </form>
+        </div>
+
+        {% if qidiruv %}
+            <div class="natija-soni">
+                <strong>{{ natijalar|length }}</strong> ta natija <strong>"{{ qidiruv }}"</strong> bo'yicha
+            </div>
+        {% endif %}
+
+        <!-- ===== NATIJALAR (ANIMATSIYA BILAN) ===== -->
+        {% for maqola in natijalar %}
+            <div class="maqola-card" onclick="window.location='{% url 'myapp:maqola_detail' maqola.pk %}'">
+                <h2><a href="{% url 'myapp:maqola_detail' maqola.pk %}">{{ maqola.nom }}</a></h2>
+                <p class="muallif">✍️ {{ maqola.muallifi }}</p>
+                <p class="sana">📅 {{ maqola.yaratilgan|date:"d.m.Y" }}</p>
+
+                <!-- ✅ HOVERDA KO'RINADIGAN QO'SHIMCHA -->
+                <div class="extra">
+                    <p><strong>📌 Sarlavha:</strong> {{ maqola.sarlavha }}</p>
+                    <div class="tavsif">
+                        <p>{{ maqola.tavsif|truncatewords:12 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty">
+                <span class="icon">📭</span>
+                {% if qidiruv %}
+                    <p><strong>"{{ qidiruv }}"</strong> bo'yicha hech qanday maqola topilmadi.</p>
+                {% else %}
+                    <p>Qidiruv so'zini kiriting.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <footer>
+            <p>© 2026 Mening saytim</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ mahsulot.nom }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* ============================================================
+           BARCHA ANIMATSIYALAR
+           ============================================================ */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeInLeft {
+            0% { opacity: 0; transform: translateX(-60px) rotate(-3deg); }
+            100% { opacity: 1; transform: translateX(0) rotate(0); }
+        }
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translateX(60px) rotate(3deg); }
+            100% { opacity: 1; transform: translateX(0) rotate(0); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(108,92,231,0.1); }
+            50% { box-shadow: 0 0 70px rgba(108,92,231,0.3); }
+            100% { box-shadow: 0 0 20px rgba(108,92,231,0.1); }
+        }
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+        @keyframes floatDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(14px); }
+        }
+        @keyframes shine {
+            0% { background-position: -300% center; }
+            100% { background-position: 300% center; }
+        }
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.7) rotate(-5deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0); }
+        }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(108,92,231,0.2); }
+            50% { text-shadow: 0 0 40px rgba(108,92,231,0.6); }
+            100% { text-shadow: 0 0 10px rgba(108,92,231,0.2); }
+        }
+        @keyframes borderGlow {
+            0% { border-color: rgba(108,92,231,0.1); }
+            50% { border-color: rgba(108,92,231,0.5); }
+            100% { border-color: rgba(108,92,231,0.1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        @keyframes borderPulse {
+            0% { border-color: rgba(108,92,231,0.1); }
+            50% { border-color: rgba(108,92,231,0.4); }
+            100% { border-color: rgba(108,92,231,0.1); }
+        }
+
+        /* ============================================================
+           WRAPPER
+           ============================================================ */
+        .mahsulot-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 45px;
+            align-items: start;
+            padding: 10px 0;
+        }
+
+        /* ============================================================
+           RASM (KATTA)
+           ============================================================ */
+        .mahsulot-rasm {
+            animation: fadeInLeft 0.9s ease;
+        }
+        .mahsulot-rasm .rasm-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border-radius: 32px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.06);
+            animation: pulseGlow 4s ease-in-out infinite, floatUp 6s ease-in-out infinite;
+            transition: 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .mahsulot-rasm .rasm-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(108,92,231,0.05), transparent, rgba(162,155,254,0.05), transparent);
+            animation: rotateGlow 8s linear infinite;
+        }
+        .mahsulot-rasm .rasm-card:hover {
+            transform: scale(1.05) translateY(-8px);
+            border-color: rgba(108,92,231,0.4);
+        }
+        .mahsulot-rasm img {
+            width: 100%;
+            border-radius: 24px;
+            display: block;
+            transition: 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+            position: relative;
+            z-index: 1;
+            max-height: 450px;
+            object-fit: cover;
+        }
+        .mahsulot-rasm img:hover {
+            transform: scale(1.06) rotate(2deg);
+            box-shadow: 0 20px 60px rgba(108,92,231,0.3);
+        }
+        .mahsulot-rasm .no-rasm {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            color: #444;
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .mahsulot-rasm .badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+            animation: pulseGlow 2s ease-in-out infinite, floatUp 4s ease-in-out infinite;
+        }
+
+        /* ============================================================
+           MA'LUMOTLAR
+           ============================================================ */
+        .mahsulot-info {
+            animation: fadeInRight 0.9s ease 0.2s backwards;
+        }
+
+        .mahsulot-info .brend {
+            display: inline-block;
+            background: rgba(108,92,231,0.12);
+            color: #a29bfe;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            padding: 6px 22px;
+            border-radius: 60px;
+            font-weight: 700;
+            animation: borderGlow 3s ease-in-out infinite, floatDown 4s ease-in-out infinite;
+            transition: 0.4s;
+            cursor: default;
+        }
+        .mahsulot-info .brend:hover {
+            background: rgba(108,92,231,0.25);
+            transform: scale(1.08) rotate(-2deg);
+        }
+
+        .mahsulot-info h1 {
+            font-size: 3.6rem;
+            font-weight: 900;
+            margin: 14px 0 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #a29bfe 35%, #fdcb6e 65%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 350% auto;
+            animation: shine 6s linear infinite, textGlow 4s ease-in-out infinite;
+            letter-spacing: -1px;
+            line-height: 1.05;
+            transition: 0.4s;
+        }
+        .mahsulot-info h1:hover {
+            transform: scale(1.03) rotate(-1deg);
+        }
+
+        .mahsulot-info .slogan {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.2);
+            font-style: italic;
+            margin-bottom: 20px;
+            animation: floatUp 6s ease-in-out infinite;
+            transition: 0.4s;
+            cursor: default;
+        }
+        .mahsulot-info .slogan:hover {
+            color: rgba(255,255,255,0.5);
+            transform: translateX(6px);
+        }
+
+        /* ============================================================
+           NARX
+           ============================================================ */
+        .narx-block {
+            background: linear-gradient(135deg, rgba(108,92,231,0.12), rgba(162,155,254,0.04));
+            border: 1px solid rgba(108,92,231,0.15);
+            border-radius: 20px;
+            padding: 18px 32px;
+            display: inline-block;
+            margin: 8px 0 22px;
+            animation: bounceIn 0.9s ease 0.4s backwards;
+            transition: 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+            cursor: default;
+        }
+        .narx-block:hover {
+            background: rgba(108,92,231,0.18);
+            border-color: rgba(108,92,231,0.4);
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 16px 50px rgba(108,92,231,0.2);
+        }
+        .narx-block .narx {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #fdcb6e;
+            transition: 0.4s;
+        }
+        .narx-block .narx:hover {
+            color: #fff;
+            transform: scale(1.02);
+        }
+        .narx-block .narx small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.25);
+        }
+
+        /* ============================================================
+           XUSUSIYATLAR (9 TA)
+           ============================================================ */
+        .xususiyatlar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 22px 0;
+        }
+        .xususiyat {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 18px;
+            padding: 16px 20px;
+            transition: 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+            animation: fadeInUp 0.8s ease backwards;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .xususiyat::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6c5ce7, #fdcb6e);
+            transition: 0.5s;
+        }
+        .xususiyat:hover::after {
+            width: 100%;
+        }
+        .xususiyat:nth-child(1) { animation-delay: 0.3s; }
+        .xususiyat:nth-child(2) { animation-delay: 0.4s; }
+        .xususiyat:nth-child(3) { animation-delay: 0.5s; }
+        .xususiyat:nth-child(4) { animation-delay: 0.6s; }
+        .xususiyat:nth-child(5) { animation-delay: 0.7s; }
+        .xususiyat:nth-child(6) { animation-delay: 0.8s; }
+        .xususiyat:nth-child(7) { animation-delay: 0.9s; }
+        .xususiyat:nth-child(8) { animation-delay: 1.0s; }
+        .xususiyat:nth-child(9) { animation-delay: 1.1s; }
+
+        .xususiyat:hover {
+            background: rgba(108,92,231,0.07);
+            border-color: rgba(108,92,231,0.15);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        .xususiyat .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 2px;
+            transition: 0.4s;
+        }
+        .xususiyat:hover .label {
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+        }
+        .xususiyat .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f0f0f0;
+            margin-top: 3px;
+            transition: 0.4s;
+            display: inline-block;
+        }
+        .xususiyat:hover .value {
+            color: #fff;
+            animation: shake 0.6s ease;
+        }
+        .xususiyat .value .holat-mavjud { color: #2ecc71; animation: blink 2s ease-in-out infinite; }
+        .xususiyat .value .holat-mavjud_emas { color: #e74c3c; }
+        .xususiyat .value .holat-tugab { color: #f39c12; animation: blink 1.5s ease-in-out infinite; }
+        .xususiyat .value .reyting {
+            color: #fdcb6e;
+        }
+        .xususiyat .value .tarkib {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ============================================================
+           TAVSIF
+           ============================================================ */
+        .tavsif-blok {
+            background: rgba(255,255,255,0.02);
+            border-radius: 18px;
+            padding: 20px 26px;
+            border-left: 5px solid #6c5ce7;
+            margin: 18px 0 10px;
+            animation: fadeInUp 0.9s ease 0.9s backwards;
+            transition: 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+            cursor: default;
+        }
+        .tavsif-blok:hover {
+            border-left-color: #fdcb6e;
+            background: rgba(108,92,231,0.05);
+            transform: translateX(8px);
+        }
+        .tavsif-blok p {
+            color: rgba(255,255,255,0.5);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            transition: 0.3s;
+        }
+        .tavsif-blok:hover p {
+            color: rgba(255,255,255,0.7);
+            transform: scale(1.01);
+        }
+
+        /* ============================================================
+           ORTGA TUGMA
+           ============================================================ */
+        .ortga-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 40px;
+            border-radius: 60px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            transition: 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+            font-weight: 700;
+            animation: fadeInUp 0.9s ease 1.1s backwards;
+            letter-spacing: 0.5px;
+        }
+        .ortga-btn:hover {
+            background: rgba(108,92,231,0.12);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: translateX(-8px) scale(1.03);
+            box-shadow: 0 12px 40px rgba(108,92,231,0.15);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 900px) {
+            .mahsulot-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .mahsulot-rasm .rasm-card {
+                max-width: 100%;
+            }
+            .mahsulot-info h1 {
+                font-size: 2.6rem;
+            }
+            .narx-block .narx {
+                font-size: 2.4rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .xususiyatlar {
+                grid-template-columns: 1fr;
+            }
+            .mahsulot-info h1 {
+                font-size: 2rem;
+            }
+            .narx-block .narx {
+                font-size: 1.8rem;
+            }
+            .mahsulot-rasm .no-rasm {
+                height: 250px;
+                font-size: 4rem;
+            }
+            .mahsulot-rasm .badge {
+                font-size: 0.55rem;
+                padding: 3px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ {{ mahsulot.nom }}</h1>
+            <nav>
+                <a href="{% url 'myapp:home' %}">🏠 Bosh sahifa</a>
+                <a href="{% url 'myapp:mahsulot_list' %}">📦 Mahsulotlar</a>
+            </nav>
+        </header>
+
+        <div class="mahsulot-wrapper">
+            <!-- RASM -->
+            <div class="mahsulot-rasm">
+                <div class="rasm-card">
+                    {% if mahsulot.surat %}
+                        <img src="{{ mahsulot.surat.url }}" alt="{{ mahsulot.nom }}">
+                    {% else %}
+                        <div class="no-rasm">🖼️</div>
+                    {% endif %}
+                    <div class="badge">🔥 Eng ko'p sotilgan</div>
+                </div>
+            </div>
+
+            <!-- MA'LUMOTLAR -->
+            <div class="mahsulot-info">
+                <span class="brend">⭐ Mahsulot</span>
+                <h1>{{ mahsulot.nom }}</h1>
+                <p class="slogan">✨ Sifat va ishonch</p>
+
+                <!-- NARX -->
+                <div class="narx-block">
+                    <span class="narx">{{ mahsulot.narx }} <small>so'm</small></span>
+                </div>
+
+                <!-- XUSUSIYATLAR (9 TA) -->
+                <div class="xususiyatlar">
+                    <div class="xususiyat">
+                        <div class="label">📦 Miqdor</div>
+                        <div class="value">{{ mahsulot.miqdor }} dona</div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">📊 Holat</div>
+                        <div class="value">
+                            {% if mahsulot.holat == 'mavjud' %}
+                                <span class="holat-mavjud">✅ Mavjud</span>
+                            {% elif mahsulot.holat == 'mavjud_emas' %}
+                                <span class="holat-mavjud_emas">❌ Mavjud emas</span>
+                            {% else %}
+                                <span class="holat-tugab">⚠️ Tugab qolgan</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">⭐ Reyting</div>
+                        <div class="value reyting">
+                            {% if mahsulot.reyting_ortacha %}
+                                {{ mahsulot.reyting_ortacha }} / 5
+                            {% else %}
+                                Baholanmagan
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">🏷️ Brend</div>
+                        <div class="value">{{ mahsulot.brend|default:"Noma'lum" }}</div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">🌍 Ishlab chiqarilgan</div>
+                        <div class="value">{{ mahsulot.ishlab_chiqarilgan|default:"Noma'lum" }}</div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">📅 Yaroqlilik</div>
+                        <div class="value">{{ mahsulot.yaroqlilik|default:"Noma'lum" }}</div>
+                    </div>
+                    <div class="xususiyat" style="grid-column: span 2;">
+                        <div class="label">🧴 Tarkibi</div>
+                        <div class="value tarkib">{{ mahsulot.tarkibi|default:"Ma'lumot yo'q" }}</div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">🚚 Yetkazib berish</div>
+                        <div class="value">1-3 kun</div>
+                    </div>
+                    <div class="xususiyat">
+                        <div class="label">🔄 Qaytarish</div>
+                        <div class="value">7 kun</div>
+                    </div>
+                </div>
+
+                <!-- TAVSIF -->
+                <div class="tavsif-blok">
+                    <p>{{ mahsulot.tavsif|linebreaks }}</p>
+                </div>
+
+                <!-- ORTGA -->
+                <a href="{% url 'myapp:mahsulot_list' %}" class="ortga-btn">⬅️ Ortga</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Mening saytim</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
